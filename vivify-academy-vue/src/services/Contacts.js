@@ -16,6 +16,14 @@ export default class Contacts {
   remove(id) {
     return axios.delete(`contacts/${id}`);
   }
+
+  edit(contact) {
+    return axios.put(`contacts/${contact.id}`, contact);
+  }
+
+  get(id) {
+    return axios.get(`contacts/${id}`);
+  }
 }
 
 export const contacts = new Contacts();

@@ -2,7 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import App from './App.vue';
 import Contacts from './pages/Contacts.vue';
-import AddContact from './pages/AddContact.vue';
+import ContactFormPage from './pages/ContactFormPage.vue';
 
 Vue.config.productionTip = false;
 
@@ -12,7 +12,7 @@ const routes = [
   { path: '/', redirect: '/contacts' },
   { path: '/contacts', component: Contacts, name: 'contacts' },
   { path: '/contacts/:id', component: Contacts, name: 'contact-details' },
-  { path: '/add-contact', component: AddContact }
+  { path: '/contact-form', component: ContactFormPage, name: 'contact-form' }
 ];
 
 const router = new VueRouter({

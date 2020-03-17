@@ -11,11 +11,14 @@
           <button class="btn btn-danger btn-sm mr-2" @click="deleteContact(contact.id)">
             <i class="fas fa-trash"></i>
           </button>
+          <router-link :to="{ name: 'contact-form', params: { id: contact.id } }">
+            <button class="btn btn-primary btn-sm"><i class="fa fa-pencil-alt"></i></button>
+          </router-link>
         </li>
       </ul>
       <div class="card-body" v-else>
         &larr; Please select a contact you want to see or click
-        <router-link to="/add-contact">here</router-link> to create a new contact.
+        <router-link to="/contact-form">here</router-link> to create a new contact.
       </div>
     </div>
   </div>

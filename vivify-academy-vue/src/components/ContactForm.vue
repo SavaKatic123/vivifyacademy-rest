@@ -10,7 +10,7 @@
             type="text"
             required="required"
             class="form-control here"
-            v-model="contact.first_name"
+            v-model="draftContact.first_name"
           />
         </div>
       </div>
@@ -25,7 +25,7 @@
             type="text"
             required="required"
             class="form-control here"
-            v-model="contact.last_name"
+            v-model="draftContact.last_name"
           />
         </div>
       </div>
@@ -39,7 +39,7 @@
           type="email"
           required="required"
           class="form-control here"
-          v-model="contact.email"
+          v-model="draftContact.email"
         />
       </div>
     </div>
@@ -53,7 +53,7 @@
             type="tel"
             required="required"
             class="form-control here"
-            v-model="contact.number"
+            v-model="draftContact.number"
           />
         </div>
       </div>
