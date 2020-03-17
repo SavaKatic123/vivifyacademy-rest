@@ -39,6 +39,10 @@ class ContactController extends Controller
     {
         $contact = new Contact();
 
+        if (!$request->has(['first_name', 'last_name', 'email', 'number'])) {
+            abort(400);
+        }
+
         $contact->first_name = $request->input('first_name');
         $contact->last_name = $request->input('last_name');
         $contact->email = $request->input('email');
@@ -82,6 +86,10 @@ class ContactController extends Controller
     {
 
         $contact = Contact::findOrFail($id);
+
+        if (!$request->has(['first_name', 'last_name', 'email', 'number'])) {
+            abort(400);
+        }
 
         $contact->first_name = $request->input('first_name');
         $contact->last_name = $request->input('last_name');
