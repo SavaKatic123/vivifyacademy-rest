@@ -12,6 +12,10 @@ export default class Contacts {
   add(contact) {
     return axios.post('contacts', contact);
   }
+
+  remove(id) {
+    return axios.delete(`contacts/${id}`);
+  }
 }
 
 export const contacts = new Contacts();

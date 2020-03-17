@@ -6,7 +6,7 @@
           <ContactList :contacts="contacts" />
         </div>
         <div class="col-8">
-          <ContactDetails :contact="routeContact" />
+          <ContactDetails :contact="routeContact" @onDelete="deleteContact" />
         </div>
       </div>
     </div>
@@ -36,6 +36,10 @@ export default {
   methods: {
     addContact(contact) {
       this.contacts.push(contact);
+    },
+    deleteContact(id) {
+      let index = this.contacts.findIndex(contact => contact.id === id);
+      this.contacts.splice(index, 1);
     }
   },
   beforeRouteEnter(to, from, next) {
