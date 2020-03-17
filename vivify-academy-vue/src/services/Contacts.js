@@ -8,6 +8,10 @@ export default class Contacts {
   getAll() {
     return axios.get('contacts');
   }
+
+  add(contact) {
+    return axios.post('contacts', contact);
+  }
 }
 
 export const contacts = new Contacts();

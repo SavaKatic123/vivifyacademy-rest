@@ -42,6 +42,7 @@ class ContactController extends Controller
         $contact->first_name = $request->input('first_name');
         $contact->last_name = $request->input('last_name');
         $contact->email = $request->input('email');
+        $contact->number = $request->input('number');
 
         $contact->save();
 
@@ -85,6 +86,7 @@ class ContactController extends Controller
         $contact->first_name = $request->input('first_name');
         $contact->last_name = $request->input('last_name');
         $contact->email = $request->input('email');
+        $contact->number = $request->input('number');
 
         $contact->save();
 

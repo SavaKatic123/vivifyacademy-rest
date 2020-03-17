@@ -9,11 +9,6 @@
           <ContactDetails :contact="routeContact" />
         </div>
       </div>
-      <div class="row mt-3">
-        <div class="col">
-          <ContactForm @onSubmit="addContact" />
-        </div>
-      </div>
     </div>
   </span>
 </template>
@@ -21,14 +16,12 @@
 <script>
 import ContactList from '../components/ContactList.vue';
 import ContactDetails from '../components/ContactDetails.vue';
-import ContactForm from '../components/ContactForm.vue';
 import { contacts } from '../services/Contacts';
 
 export default {
   components: {
     ContactList,
-    ContactDetails,
-    ContactForm
+    ContactDetails
   },
   data() {
     return {
