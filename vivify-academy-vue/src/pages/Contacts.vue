@@ -1,5 +1,6 @@
 <template>
   <span>
+    <loading :active.sync="isLoading" :can-cancel="true" :is-full-page="true"></loading>
     <div class="container mt-4">
       <div class="row">
         <div class="col">
@@ -17,15 +18,19 @@
 import ContactList from '../components/ContactList.vue';
 import ContactDetails from '../components/ContactDetails.vue';
 import { contacts } from '../services/Contacts';
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
 
 export default {
   components: {
     ContactList,
-    ContactDetails
+    ContactDetails,
+    Loading
   },
   data() {
     return {
-      contacts: []
+      contacts: [],
+      isLoading: false
     };
   },
   computed: {
@@ -42,11 +47,11 @@ export default {
       this.contacts.splice(index, 1);
     }
   },
-  beforeRouteEnter(to, from, next) {
+  created() {
+    this.isLoading = true;
     contacts.getAll().then(response => {
-      next(vm => {
-        vm.contacts = response.data;
-      });
+      this.isLoading = false;
+      this.contacts = response.data;
     });
   }
 };
