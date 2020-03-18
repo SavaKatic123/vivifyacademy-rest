@@ -9,11 +9,21 @@ Vue.config.productionTip = false;
 
 Vue.use(VueRouter);
 
+function loginGuard(to, from, next) {
+  let isAuthenticated = !!window.localStorage.getItem('loginToken');
+  isAuthenticated ? next() : next('/login');
+}
+
 const routes = [
-  { path: '/', redirect: '/contacts' },
-  { path: '/contacts', component: Contacts, name: 'contacts' },
-  { path: '/contacts/:id', component: Contacts, name: 'contact-details' },
-  { path: '/contact-form', component: ContactFormPage, name: 'contact-form' },
+  { path: '/', redirect: '/contacts', beforeEnter: loginGuard },
+  { path: '/contacts', component: Contacts, name: 'contacts', beforeEnter: loginGuard },
+  { path: '/contacts/:id', component: Contacts, name: 'contact-details', beforeEnter: loginGuard },
+  {
+    path: '/contact-form',
+    component: ContactFormPage,
+    name: 'contact-form',
+    beforeEnter: loginGuard
+  },
   { path: '/login', component: Login, name: 'login' }
 ];
 
