@@ -70,7 +70,7 @@
 export default {
   data() {
     return {
-      draftContact: this.contact
+      draftContact: {}
     };
   },
   props: {
@@ -88,6 +88,11 @@ export default {
   methods: {
     onSubmit() {
       this.$emit('onSubmit', this.draftContact);
+    }
+  },
+  watch: {
+    contact() {
+      this.draftContact = this.contact;
     }
   }
 };

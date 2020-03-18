@@ -44,6 +44,8 @@ export default {
           vm.isEdit = true;
         });
       });
+    } else {
+      next();
     }
   }
 };
