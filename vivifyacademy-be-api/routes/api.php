@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::group(['middleware' => ['api']], function() {
+Route::post('/login', 'Auth\LoginController@authenticate');
+
+Route::group(['middleware' => ['jwt']], function() {
     Route::resource('contacts','ContactController');
 });
