@@ -47,11 +47,11 @@ export default {
       this.contacts.splice(index, 1);
     }
   },
-  created() {
-    this.isLoading = true;
+  beforeRouteEnter(to, from, next) {
     contacts.getAll().then(response => {
-      this.isLoading = false;
-      this.contacts = response.data;
+      next(vm => {
+        vm.contacts = response.data;
+      });
     });
   }
 };
