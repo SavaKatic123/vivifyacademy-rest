@@ -4,10 +4,12 @@ import App from './App.vue';
 import Contacts from './pages/Contacts.vue';
 import ContactFormPage from './pages/ContactFormPage.vue';
 import Login from './pages/Login.vue';
+import MyPlugin from './plugins/MyPlugin';
 
 Vue.config.productionTip = false;
 
 Vue.use(VueRouter);
+Vue.use(MyPlugin);
 
 function loginGuard(to, from, next) {
   let isAuthenticated = !!window.localStorage.getItem('loginToken');
