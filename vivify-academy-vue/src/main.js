@@ -5,6 +5,7 @@ import Contacts from './pages/Contacts.vue';
 import ContactFormPage from './pages/ContactFormPage.vue';
 import Login from './pages/Login.vue';
 import MyPlugin from './plugins/MyPlugin';
+import store from './store/store';
 
 Vue.config.productionTip = false;
 
@@ -36,5 +37,6 @@ const router = new VueRouter({
 
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount('#app');
