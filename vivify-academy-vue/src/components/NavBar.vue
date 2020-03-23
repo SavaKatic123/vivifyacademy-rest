@@ -14,16 +14,22 @@
 
 <script>
 import { authService } from '../services/Auth';
+import { mapGetters, mapActions } from 'vuex';
+
 export default {
-  data() {
-    return {
-      isAuthenticated: authService.isAuthenticated()
-    };
+  computed: {
+    ...mapGetters({
+      isAuthenticated: 'auth/getToken'
+    })
   },
   methods: {
+    ...mapActions({
+      logoutAction: 'auth/logout'
+    }),
     logout() {
       authService.logout();
-      this.isAuthenticated = false;
+      this.logoutAction();
+      this.$router.push('/login');
     }
   }
 };

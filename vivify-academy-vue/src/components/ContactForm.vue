@@ -26,7 +26,6 @@
             required="required"
             class="form-control here"
             v-model="draftContact.last_name"
-            v-focus-on
           />
         </div>
       </div>

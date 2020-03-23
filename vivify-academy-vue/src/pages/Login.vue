@@ -25,7 +25,9 @@
 </template>
 
 <script>
-import { authService } from '../services/Auth';
+// import { authService } from '../services/Auth';
+import { mapActions } from 'vuex';
+
 export default {
   data() {
     return {
@@ -34,8 +36,11 @@ export default {
     };
   },
   methods: {
+    ...mapActions({
+      loginAction: 'auth/login'
+    }),
     login() {
-      authService.login(this.email, this.password).then(() => {
+      this.loginAction({ email: this.email, password: this.password }).then(() => {
         this.$router.push({ name: 'contacts' });
       });
     }

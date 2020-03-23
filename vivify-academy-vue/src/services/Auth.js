@@ -6,15 +6,10 @@ export default class AuthService {
   }
 
   login(email, password) {
-    return axios
-      .post('http://localhost:8000/api/login', {
-        email,
-        password
-      })
-      .then(data => {
-        window.localStorage.setItem('loginToken', data.data.token);
-        this.setAxiosDefaultAuthorizationHeader();
-      });
+    return axios.post('http://localhost:8000/api/login', {
+      email,
+      password
+    });
   }
 
   setAxiosDefaultAuthorizationHeader() {

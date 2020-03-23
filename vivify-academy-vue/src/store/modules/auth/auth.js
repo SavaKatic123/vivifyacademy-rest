@@ -1,28 +1,37 @@
 import { authService } from '../../../services/Auth';
 
 const USER_LOGIN = 'USER_LOGIN';
+const USER_LOGOUT = 'USER_LOGOUT';
 
 const state = {
-  user: null
+  token: null
 };
 
 const mutations = {
   [USER_LOGIN](state, data) {
-    state.user = data;
+    state.token = data.token;
+  },
+  [USER_LOGOUT](state) {
+    state.token = null;
   }
 };
 
 const actions = {
   login({ commit }, { email, password }) {
     return authService.login(email, password).then(response => {
+      window.localStorage.setItem('loginToken', response.data.token);
+      authService.setAxiosDefaultAuthorizationHeader();
       commit(USER_LOGIN, response.data);
     });
+  },
+  logout({ commit }) {
+    commit(USER_LOGOUT);
   }
 };
 
 const getters = {
-  getUser() {
-    return state.user;
+  getToken() {
+    return state.token;
   }
 };
 
