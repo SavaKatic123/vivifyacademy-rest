@@ -47,6 +47,9 @@ export default {
       this.contacts.splice(index, 1);
     }
   },
+  mounted() {
+    console.log(this.$getPluginName());
+  },
   beforeRouteEnter(to, from, next) {
     contacts.getAll().then(response => {
       next(vm => {
