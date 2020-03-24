@@ -7,7 +7,7 @@
           <ContactList :contacts="contacts" />
         </div>
         <div class="col-8">
-          <ContactDetails :contact="routeContact" @onDelete="deleteContact" />
+          <!-- <ContactDetails :contact="routeContact" @onDelete="deleteContact" /> -->
         </div>
       </div>
     </div>
@@ -16,43 +16,46 @@
 
 <script>
 import ContactList from '../components/ContactList.vue';
-import ContactDetails from '../components/ContactDetails.vue';
-import { contacts } from '../services/Contacts';
+// import ContactDetails from '../components/ContactDetails.vue';
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
+import store from '../store/store.js';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
     ContactList,
-    ContactDetails,
+    // ContactDetails,
     Loading
   },
   data() {
     return {
-      contacts: [],
       isLoading: false
     };
   },
   computed: {
     routeContact() {
+      if (!this.contacts) {
+        return;
+      }
       return this.contacts.find(contact => contact.id == this.$route.params.id);
-    }
+    },
+    ...mapGetters({
+      contacts: 'contacts/getAll'
+    })
   },
   methods: {
-    addContact(contact) {
-      this.contacts.push(contact);
-    },
-    deleteContact(id) {
-      let index = this.contacts.findIndex(contact => contact.id === id);
-      this.contacts.splice(index, 1);
-    }
+    // addContact(contact) {
+    //   this.contacts.push(contact);
+    // },
+    // deleteContact(id) {
+    //   let index = this.contacts.findIndex(contact => contact.id === id);
+    //   this.contacts.splice(index, 1);
+    // }
   },
   beforeRouteEnter(to, from, next) {
-    contacts.getAll().then(response => {
-      next(vm => {
-        vm.contacts = response.data;
-      });
-    });
+    store.dispatch('contacts/getAll');
+    next();
   }
 };
 </script>

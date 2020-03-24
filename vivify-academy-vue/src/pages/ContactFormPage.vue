@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { contacts } from '../services/Contacts';
+import { contactsService } from '../services/Contacts';
 import ContactForm from '../components/ContactForm.vue';
 
 export default {
@@ -26,19 +26,19 @@ export default {
       this.isEdit ? this.editContact(contact) : this.addContact(contact);
     },
     addContact(contact) {
-      contacts.add(contact).then(() => {
+      contactsService.add(contact).then(() => {
         this.$router.push('/contacts');
       });
     },
     editContact(contact) {
-      contacts.edit(contact).then(() => {
+      contactsService.edit(contact).then(() => {
         this.$router.push('/contacts');
       });
     }
   },
   beforeRouteEnter(to, from, next) {
     if (to.params.id) {
-      contacts.get(to.params.id).then(response => {
+      contactsService.get(to.params.id).then(response => {
         next(vm => {
           vm.contact = response.data;
           vm.isEdit = true;

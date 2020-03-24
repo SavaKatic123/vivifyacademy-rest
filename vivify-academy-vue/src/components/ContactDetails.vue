@@ -25,12 +25,12 @@
 </template>
 
 <script>
-import { contacts } from '../services/Contacts';
+import { contactsService } from '../services/Contacts';
 export default {
   props: ['contact'],
   methods: {
     deleteContact(id) {
-      contacts.remove(id).then(() => {
+      contactsService.remove(id).then(() => {
         this.$emit('onDelete', id);
       });
     }
