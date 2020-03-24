@@ -5,26 +5,26 @@
 </template>
 
 <script>
-import { contactsService } from '../services/Contacts';
 import ContactForm from '../components/ContactForm.vue';
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
+import store from '../store/store.js';
 
 export default {
   components: { ContactForm },
   data() {
     return {
-      contact: {
-        first_name: '',
-        last_name: '',
-        email: '',
-        number: ''
-      },
       isEdit: false
     };
   },
+  computed: {
+    ...mapGetters({
+      contact: 'contacts/getEditContact'
+    })
+  },
   methods: {
     ...mapActions({
-      addContactAction: 'contacts/add'
+      addContactAction: 'contacts/add',
+      editContactAction: 'contacts/edit'
     }),
     onSubmit(contact) {
       this.isEdit ? this.editContact(contact) : this.addContact(contact);
@@ -35,22 +35,19 @@ export default {
       });
     },
     editContact(contact) {
-      contactsService.edit(contact).then(() => {
+      this.editContactAction(contact).then(() => {
         this.$router.push('/contacts');
       });
     }
   },
   beforeRouteEnter(to, from, next) {
     if (to.params.id) {
-      contactsService.get(to.params.id).then(response => {
-        next(vm => {
-          vm.contact = response.data;
-          vm.isEdit = true;
-        });
+      store.dispatch('contacts/getOne', to.params.id);
+      next(vm => {
+        vm.isEdit = true;
       });
-    } else {
-      next();
     }
+    next();
   }
 };
 </script>

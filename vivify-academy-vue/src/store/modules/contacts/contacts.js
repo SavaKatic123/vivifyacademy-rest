@@ -3,9 +3,17 @@ import { contactsService } from '../../../services/Contacts';
 const CONTACTS_ALL = 'CONTACTS_ALL';
 const CONTACTS_DELETE = 'CONTACTS_DELETE';
 const CONTACTS_ADD = 'CONTACTS_ADD';
+const CONTACTS_GET = 'CONTACTS_GET';
+const CONTACTS_EDIT = 'CONTACTS_EDIT';
 
 const state = {
-  contacts: []
+  contacts: [],
+  editContact: {
+    first_name: '',
+    last_name: '',
+    email: '',
+    number: ''
+  }
 };
 
 const mutations = {
@@ -18,6 +26,16 @@ const mutations = {
   },
   [CONTACTS_ADD](state, contact) {
     state.contacts.push(contact);
+  },
+  [CONTACTS_GET](state, data) {
+    state.editContact = data;
+  },
+  [CONTACTS_EDIT](state, contact) {
+    const index = state.contacts.findIndex(contact => contact.id == contact.id);
+    state.contacts[index] = contact;
+    if (state.editContact) {
+      state.editContact = contact;
+    }
   }
 };
 
@@ -36,12 +54,25 @@ const actions = {
     contactsService.add(contact).then(() => {
       commit(CONTACTS_ADD, contact);
     });
+  },
+  getOne({ commit }, id) {
+    contactsService.get(id).then(response => {
+      commit(CONTACTS_GET, response.data);
+    });
+  },
+  edit({ commit }, contact) {
+    contactsService.edit(contact).then(response => {
+      commit(CONTACTS_EDIT, response.data);
+    });
   }
 };
 
 const getters = {
   getAll() {
     return state.contacts;
+  },
+  getEditContact() {
+    return state.editContact;
   }
 };
 
