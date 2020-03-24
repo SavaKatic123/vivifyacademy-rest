@@ -7,6 +7,7 @@
 <script>
 import { contactsService } from '../services/Contacts';
 import ContactForm from '../components/ContactForm.vue';
+import { mapActions } from 'vuex';
 
 export default {
   components: { ContactForm },
@@ -22,11 +23,14 @@ export default {
     };
   },
   methods: {
+    ...mapActions({
+      addContactAction: 'contacts/add'
+    }),
     onSubmit(contact) {
       this.isEdit ? this.editContact(contact) : this.addContact(contact);
     },
     addContact(contact) {
-      contactsService.add(contact).then(() => {
+      this.addContactAction(contact).then(() => {
         this.$router.push('/contacts');
       });
     },
