@@ -7,7 +7,7 @@
           <ContactList :contacts="contacts" />
         </div>
         <div class="col-8">
-          <!-- <ContactDetails :contact="routeContact" @onDelete="deleteContact" /> -->
+          <ContactDetails :contact="routeContact" />
         </div>
       </div>
     </div>
@@ -16,7 +16,7 @@
 
 <script>
 import ContactList from '../components/ContactList.vue';
-// import ContactDetails from '../components/ContactDetails.vue';
+import ContactDetails from '../components/ContactDetails.vue';
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import store from '../store/store.js';
@@ -25,7 +25,7 @@ import { mapGetters } from 'vuex';
 export default {
   components: {
     ContactList,
-    // ContactDetails,
+    ContactDetails,
     Loading
   },
   data() {
@@ -43,15 +43,6 @@ export default {
     ...mapGetters({
       contacts: 'contacts/getAll'
     })
-  },
-  methods: {
-    // addContact(contact) {
-    //   this.contacts.push(contact);
-    // },
-    // deleteContact(id) {
-    //   let index = this.contacts.findIndex(contact => contact.id === id);
-    //   this.contacts.splice(index, 1);
-    // }
   },
   beforeRouteEnter(to, from, next) {
     store.dispatch('contacts/getAll');

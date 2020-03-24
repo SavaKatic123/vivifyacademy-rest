@@ -25,14 +25,16 @@
 </template>
 
 <script>
-import { contactsService } from '../services/Contacts';
+import { mapActions } from 'vuex';
+
 export default {
   props: ['contact'],
   methods: {
+    ...mapActions({
+      deleteContactAction: 'contacts/delete'
+    }),
     deleteContact(id) {
-      contactsService.remove(id).then(() => {
-        this.$emit('onDelete', id);
-      });
+      this.deleteContactAction(id);
     }
   }
 };
